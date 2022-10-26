@@ -14,31 +14,36 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     private let view: UIView = {
         let view = UIView()
         view.clipsToBounds = false
-        view.layer.shadowColor = UIColor.black.withAlphaComponent(0.5).cgColor
-        view.layer.shadowOffset = .init(width: 1, height: 1)
+       
+        view.layer.shadowColor = UIColor.black.withAlphaComponent(0.1).cgColor
+        view.layer.shadowOpacity = 0.6
+        view.layer.shadowOffset = .zero
+        view.layer.shadowRadius = 10
+
         view.layer.cornerRadius = 10
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .green.withAlphaComponent(0.2)
+        view.backgroundColor = .white
         return view
     }()
     
     private let stack: UIStackView = {
         let stackView = UIStackView()
+        stackView.clipsToBounds = false
         stackView.axis = NSLayoutConstraint.Axis.horizontal
         stackView.distribution  = UIStackView.Distribution.fillEqually
-//        stackView.alignment = UIStackView.Alignment.center
-        stackView.spacing = 5
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.backgroundColor = .clear
+
         return stackView
     }()
     
 
     private var image: UIImageView = {
         let image = UIImageView()
-        image.contentMode = .scaleAspectFit
-        image.backgroundColor = .gray
+        image.contentMode = .scaleToFill
+        image.backgroundColor = .systemBlue.withAlphaComponent(0.3)
         image.layer.cornerRadius = 10
-        image.image = UIImage(systemName: "person")
+        image.image = UIImage(named: "")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -49,6 +54,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 10)
         label.textColor = .black
         label.textAlignment = .center
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -64,7 +70,12 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     }
     
     private func setView(){
-        backgroundColor = .white
+        layer.cornerRadius = 10
+        layer.shadowColor = UIColor.black.cgColor.copy(alpha: 0.5)
+        layer.shadowOpacity = 1
+        layer.shadowOffset = .zero
+        layer.shadowRadius = 10
+//        backgroundColor = .white
 //        addSubview(image)
 //        addSubview(view)
         addSubview(stack)
@@ -76,7 +87,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     }
     func setup(title: String, images: String){
         nameLbl.text = title
-        image.image = UIImage(systemName: images)
+        image.image = UIImage(named: images)
     }
     func setupOnlyTitile(title: String){
         nameLbl.text = title
@@ -84,15 +95,23 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     
     private func setConsrtaints(){
             NSLayoutConstraint.activate([
-//                nameLbl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-//                nameLbl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-//                nameLbl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-//                nameLbl.heightAnchor.constraint(equalToConstant: 16),
-//
-//                image.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-//                image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-//                image.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-//                image.bottomAnchor.constraint(equalTo: nameLbl.topAnchor, constant: -10),
+                view.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+                view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+                view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+                view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+                
+                nameLbl.topAnchor.constraint(equalTo: topAnchor, constant: 30),
+//leadingAnchor =  от левого края
+                nameLbl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 95),
+                nameLbl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2),
+                nameLbl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -19),
+//                nameLbl.heightAnchor.constraint(equalToConstant: 8),
+//                nameLbl.widthAnchor.constraint(equalToConstant: 8),
+
+                image.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+                image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+                image.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -90),
+                image.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
                 
                 stack.topAnchor.constraint(equalTo: topAnchor, constant: 0),
                 stack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),

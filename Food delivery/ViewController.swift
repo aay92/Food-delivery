@@ -13,7 +13,7 @@ class ViewController: UIViewController {
         let btn = UIButton()
         btn.backgroundColor = .systemRed.withAlphaComponent(0.7)
         btn.setTitle("Заказать", for: .normal)
-        btn.setTitleColor(.black, for: .normal)
+        btn.setTitleColor(.white, for: .normal)
         btn.titleLabel?.font = UIFont(name: "Arial", size: 20)
         btn.layer.cornerRadius = 10
         btn.titleLabel?.textColor = UIColor(named: "colorBtn")
@@ -21,12 +21,12 @@ class ViewController: UIViewController {
         return btn
     }()
     
-    
     private let collectionView: UICollectionView = {
         let collectionViewLayout = UICollectionViewLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
-        collectionView.backgroundColor = .systemGray2
+        collectionView.backgroundColor = .clear
         collectionView.bounces = false
+        collectionView.clipsToBounds = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -84,8 +84,8 @@ class ViewController: UIViewController {
             titleLbl.widthAnchor.constraint(equalToConstant: view.bounds.height / 2),
             
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
             collectionView.bottomAnchor.constraint(equalTo: buttonOrder.topAnchor, constant: -410),
 
             buttonOrder.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
@@ -128,7 +128,6 @@ extension ViewController {
     }
     
     private func createCategorySection()-> NSCollectionLayoutSection {
-        print("7")
 
         let item = NSCollectionLayoutItem(layoutSize:
                 .init(widthDimension: .fractionalWidth(1),
@@ -146,7 +145,7 @@ extension ViewController {
                                                      supplementaryItems: [supplementaryHeaderItem()],
                                           contentInsets: false)
         
-        section.contentInsets = .init(top: 10, leading: 10, bottom: 0, trailing: 10)
+        section.contentInsets = .init(top: 0, leading: 10, bottom: 0, trailing: 10)
 
         return section
     }
@@ -181,6 +180,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
              else {
                 return UICollectionViewCell()
             }
+        
             cell.setup(title: section[indexPath.row].title,
                        images: section[indexPath.row].image)
             return cell
