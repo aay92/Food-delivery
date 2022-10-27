@@ -17,6 +17,7 @@ class ViewController: UIViewController {
         btn.titleLabel?.font = UIFont(name: "Arial", size: 20)
         btn.layer.cornerRadius = 10
         btn.titleLabel?.textColor = UIColor(named: "colorBtn")
+        btn.addTarget(self, action: #selector(actionButtonOrder), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -34,7 +35,8 @@ class ViewController: UIViewController {
     private let titleLbl: UILabel = {
         let label = UILabel()
         label.text = "Food Delivery"
-        label.font = UIFont(name: "Arial", size: 20)
+        label.font = UIFont(name: "Arial Blod", size: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -49,12 +51,14 @@ class ViewController: UIViewController {
         setDelegates()
         settingView()
         setConstraints()
+
     }
 
-     func actionButtonOrder(){
+    @objc func actionButtonOrder(){
         print("Hello")}
     
     func settingView(){
+       
         view.backgroundColor = UIColor(named: "ColorBack")
         view.addSubview(titleLbl)
         view.addSubview(collectionView)

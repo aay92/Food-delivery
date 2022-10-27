@@ -52,7 +52,8 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "Категория"
         label.font = UIFont.systemFont(ofSize: 10)
-        label.textColor = .black
+        label.font = UIFont.boldSystemFont(ofSize: 11)
+        label.textColor = .black.withAlphaComponent(0.9)
         label.textAlignment = .natural
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
