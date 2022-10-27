@@ -14,12 +14,6 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     private let view: UIView = {
         let view = UIView()
         view.clipsToBounds = false
-       
-        view.layer.shadowColor = UIColor.black.withAlphaComponent(0.1).cgColor
-        view.layer.shadowOpacity = 0.6
-        view.layer.shadowOffset = .zero
-        view.layer.shadowRadius = 10
-
         view.layer.cornerRadius = 10
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
@@ -52,7 +46,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "Категория"
         label.font = UIFont.systemFont(ofSize: 10)
-        label.font = UIFont.boldSystemFont(ofSize: 11)
+        label.font = UIFont.boldSystemFont(ofSize: 10)
         label.textColor = .black.withAlphaComponent(0.9)
         label.textAlignment = .natural
         label.numberOfLines = 0
@@ -65,10 +59,19 @@ class CategoryCollectionViewCell: UICollectionViewCell {
             if isSelected {
                 layer.borderWidth = 2
                 layer.borderColor = UIColor.red.withAlphaComponent(0.5).cgColor
+                
+                layer.shadowColor = UIColor.black.cgColor.copy(alpha: 0.5)
+                layer.shadowOpacity = 0.7
+                layer.shadowOffset = .zero
+                layer.shadowRadius = 5
             } else {
                 layer.borderWidth = 0
                 layer.borderColor = UIColor.black.withAlphaComponent(0.5).cgColor
 
+                layer.shadowColor = UIColor.black.cgColor.copy(alpha: 0.5)
+                layer.shadowOpacity = 0.7
+                layer.shadowOffset = .zero
+                layer.shadowRadius = 5
             }
         }
     }
@@ -86,9 +89,9 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     private func setView(){
         layer.cornerRadius = 10
         layer.shadowColor = UIColor.black.cgColor.copy(alpha: 0.5)
-        layer.shadowOpacity = 1
+        layer.shadowOpacity = 0.7
         layer.shadowOffset = .zero
-        layer.shadowRadius = 10
+        layer.shadowRadius = 5
 //        backgroundColor = .white
 //        addSubview(image)
 //        addSubview(view)

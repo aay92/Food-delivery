@@ -15,6 +15,7 @@ class HeaderSupplementaryView : UICollectionReusableView {
         label.text = "header"
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textColor = .black.withAlphaComponent(0.6)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

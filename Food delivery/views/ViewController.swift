@@ -9,6 +9,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    static let identifier = "ViewController"
+    
     private let buttonOrder: UIButton = {
         let btn = UIButton()
         btn.backgroundColor = .systemRed.withAlphaComponent(0.7)
@@ -58,9 +60,16 @@ class ViewController: UIViewController {
         print("Hello")}
     
     func settingView(){
-       
+        navigationItem.title = "Food Delivery"
+//        navigationItem.title = UI
+//        navigationItem.titleView.
+//        navigationItem.title.font = UIFont(name: "Arial Blod", size: 20)
+//        navigationItem.title.font = UIFont.boldSystemFont(ofSize: 20)
+//        navigationItem.title.textColor = .white.cgColor
+//        navigationItem.title.textAlignment = .center
+//
         view.backgroundColor = UIColor(named: "ColorBack")
-        view.addSubview(titleLbl)
+//        view.addSubview(titleLbl)
         view.addSubview(collectionView)
         view.addSubview(buttonOrder)
 
@@ -81,16 +90,16 @@ class ViewController: UIViewController {
     func setConstraints(){
      NSLayoutConstraint.activate([
 
-            titleLbl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -5),
-            titleLbl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant:  0),
-            titleLbl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant:  0),
-            titleLbl.heightAnchor.constraint(equalToConstant: 50),
-            titleLbl.widthAnchor.constraint(equalToConstant: view.bounds.height / 2),
-            
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+//            titleLbl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -5),
+//            titleLbl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant:  0),
+//            titleLbl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant:  0),
+//            titleLbl.heightAnchor.constraint(equalToConstant: 50),
+//            titleLbl.widthAnchor.constraint(equalToConstant: view.bounds.height / 2),
+//
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
-            collectionView.bottomAnchor.constraint(equalTo: buttonOrder.topAnchor, constant: -410),
+            collectionView.bottomAnchor.constraint(equalTo: buttonOrder.topAnchor, constant: -380),
 
             buttonOrder.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
             buttonOrder.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant:  20),
@@ -108,8 +117,6 @@ extension ViewController {
 
             guard let self = self else { return nil }
             let section = self.sections[sectionsIndex]
-            
-            
             switch section {
             case .category(_):
                 return self.createCategorySection()
@@ -171,6 +178,10 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 //        return sections.count
 //
 //    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+    }
 //
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return sections[section].count
