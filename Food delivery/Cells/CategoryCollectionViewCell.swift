@@ -40,7 +40,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
 
     private var image: UIImageView = {
         let image = UIImageView()
-        image.contentMode = .scaleToFill
+        image.contentMode = .scaleAspectFit
         image.backgroundColor = .systemBlue.withAlphaComponent(0.3)
         image.layer.cornerRadius = 10
         image.image = UIImage(named: "")
@@ -53,11 +53,24 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         label.text = "Категория"
         label.font = UIFont.systemFont(ofSize: 10)
         label.textColor = .black
-        label.textAlignment = .center
+        label.textAlignment = .natural
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                layer.borderWidth = 2
+                layer.borderColor = UIColor.red.withAlphaComponent(0.5).cgColor
+            } else {
+                layer.borderWidth = 0
+                layer.borderColor = UIColor.black.withAlphaComponent(0.5).cgColor
+
+            }
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -100,10 +113,10 @@ class CategoryCollectionViewCell: UICollectionViewCell {
                 view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
                 view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
                 
-                nameLbl.topAnchor.constraint(equalTo: topAnchor, constant: 30),
+                nameLbl.topAnchor.constraint(equalTo: topAnchor, constant: 13),
 //leadingAnchor =  от левого края
-                nameLbl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 95),
-                nameLbl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2),
+                nameLbl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 80),
+                nameLbl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
                 nameLbl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -19),
 //                nameLbl.heightAnchor.constraint(equalToConstant: 8),
 //                nameLbl.widthAnchor.constraint(equalToConstant: 8),

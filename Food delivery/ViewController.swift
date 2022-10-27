@@ -130,22 +130,23 @@ extension ViewController {
     private func createCategorySection()-> NSCollectionLayoutSection {
 
         let item = NSCollectionLayoutItem(layoutSize:
-                .init(widthDimension: .fractionalWidth(1),
-                      heightDimension: .fractionalHeight(1)))
-        
+                .init(widthDimension: .fractionalWidth(0.50),
+                      heightDimension: .absolute(68)))
+        item.contentInsets.trailing = 13
+        item.contentInsets.bottom = 9
         let group = NSCollectionLayoutGroup.horizontal(layoutSize:
-                .init(widthDimension: .fractionalWidth(0.5),
-                      heightDimension: .fractionalHeight(0.3)),subitems: [item])
+                .init(widthDimension: .fractionalWidth(1),
+                      heightDimension: .estimated(500)),subitems: [item])
         
-        group.interItemSpacing = .flexible(10)
-        
+        group.contentInsets = .init(top: 0, leading: 20, bottom: 0, trailing: 10)
+
         let section = settingCollectionLayoutSection(group: group,
                                                      behavior: .none,
-                                                     intetGroupSpacing: 10,
+                                                     intetGroupSpacing: 5,
                                                      supplementaryItems: [supplementaryHeaderItem()],
                                           contentInsets: false)
         
-        section.contentInsets = .init(top: 0, leading: 10, bottom: 0, trailing: 10)
+//        section.contentInsets = .init(top: 0, leading: 10, bottom: 0, trailing: 10)
 
         return section
     }
