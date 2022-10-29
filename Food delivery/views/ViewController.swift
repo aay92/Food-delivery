@@ -24,7 +24,17 @@ class ViewController: UIViewController {
         return btn
     }()
     
-    private let collectionView: UICollectionView = {
+    private let collectionViewCategory: UICollectionView = {
+        let collectionViewLayout = UICollectionViewLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        collectionView.backgroundColor = .clear
+        collectionView.bounces = false
+        collectionView.clipsToBounds = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
+    
+    private let kindsStoresCollectionView: UICollectionView = {
         let collectionViewLayout = UICollectionViewLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.backgroundColor = .clear
@@ -45,7 +55,9 @@ class ViewController: UIViewController {
         return label
     }()
 
-    private let sections = MockData.shared.pageData
+    private let sections = MockData.shared.category
+    private let sectionsKindsStores = MockData.shared.kindsStores
+
     
     
     override func viewDidLoad() {
@@ -70,22 +82,28 @@ class ViewController: UIViewController {
 //
         view.backgroundColor = UIColor(named: "ColorBack")
 //        view.addSubview(titleLbl)
-        view.addSubview(collectionView)
+        view.addSubview(collectionViewCategory)
+        view.addSubview(kindsStoresCollectionView)
         view.addSubview(buttonOrder)
 
-        self.collectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
+        self.collectionViewCategory.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
         
-        self.collectionView.register(HeaderSupplementaryView.self,
+        self.kindsStoresCollectionView.register(KindsStoresCollectionViewCell.self, forCellWithReuseIdentifier: KindsStoresCollectionViewCell.identifier)
+        
+        self.collectionViewCategory.register(HeaderSupplementaryView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HeaderSupplementaryView")
         
-        collectionView.collectionViewLayout = createLayout()
-
+        collectionViewCategory.collectionViewLayout = createLayout()
+        kindsStoresCollectionView.collectionViewLayout = createLayoutKindsStores()
     }
     
     private func setDelegates(){
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        collectionViewCategory.delegate = self
+        collectionViewCategory.dataSource = self
+        kindsStoresCollectionView.delegate = self
+        kindsStoresCollectionView.dataSource = self
     }
+   
 
     func setConstraints(){
      NSLayoutConstraint.activate([
@@ -96,33 +114,45 @@ class ViewController: UIViewController {
 //            titleLbl.heightAnchor.constraint(equalToConstant: 50),
 //            titleLbl.widthAnchor.constraint(equalToConstant: view.bounds.height / 2),
 //
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
-            collectionView.bottomAnchor.constraint(equalTo: buttonOrder.topAnchor, constant: -380),
-
-            buttonOrder.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
-            buttonOrder.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant:  20),
-            buttonOrder.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant:  -20),
-
-            buttonOrder.heightAnchor.constraint(equalToConstant: 50),
-            buttonOrder.widthAnchor.constraint(equalToConstant: 150),
-        ])
+        collectionViewCategory.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+        collectionViewCategory.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+        collectionViewCategory.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+        collectionViewCategory.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 400),
+        
+        kindsStoresCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 270),
+        kindsStoresCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+        kindsStoresCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+        kindsStoresCollectionView.bottomAnchor.constraint(equalTo: buttonOrder.topAnchor, constant: -100),
+        
+        buttonOrder.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
+        buttonOrder.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant:  20),
+        buttonOrder.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant:  -20),
+        
+        buttonOrder.heightAnchor.constraint(equalToConstant: 50),
+        buttonOrder.widthAnchor.constraint(equalToConstant: 150),
+     ])
     }
 }
 //MARK: - Create Layout
 extension ViewController {
     private func createLayout()-> UICollectionViewCompositionalLayout{
+        UICollectionViewCompositionalLayout {[weak self] index, _ in
+
+            guard let self = self else { return nil }
+            let section = self.sections[index]
+            return self.createCategorySection()
+        }
+    }
+    
+    private func createLayoutKindsStores()-> UICollectionViewCompositionalLayout{
         UICollectionViewCompositionalLayout {[weak self] sectionsIndex, _ in
 
             guard let self = self else { return nil }
-            let section = self.sections[sectionsIndex]
-            switch section {
-            case .category(_):
-                return self.createCategorySection()
+            return self.createKindStoresCategorySection()
             }
         }
-    }
+        
+    
     
     //       быстрые настройки секции коллекции
     private func settingCollectionLayoutSection(group: NSCollectionLayoutGroup,
@@ -154,13 +184,38 @@ extension ViewController {
         let section = settingCollectionLayoutSection(group: group,
                                                      behavior: .none,
                                                      intetGroupSpacing: 5,
-                                                     supplementaryItems: [supplementaryHeaderItem()],
+                                                     supplementaryItems: [],
                                           contentInsets: false)
         
 //        section.contentInsets = .init(top: 0, leading: 10, bottom: 0, trailing: 10)
 
         return section
     }
+    
+    private func createKindStoresCategorySection()-> NSCollectionLayoutSection {
+
+        let item = NSCollectionLayoutItem(layoutSize:
+                .init(widthDimension: .fractionalWidth(0.95),
+                      heightDimension: .fractionalHeight(0.6)))
+//        item.contentInsets.trailing = -40
+//        item.contentInsets.bottom = 9
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize:
+                .init(widthDimension: .fractionalWidth(0.6),
+                      heightDimension: .fractionalHeight(1)),subitems: [item])
+        
+        group.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
+
+        let section = settingCollectionLayoutSection(group: group,
+                                                     behavior: .continuous,
+                                                     intetGroupSpacing: 10,
+                                                     supplementaryItems: [],
+                                          contentInsets: false)
+        
+//        section.contentInsets = .init(top: 0, leading: 10, bottom: 0, trailing: 10)
+
+        return section
+    }
+
     private func supplementaryHeaderItem()->NSCollectionLayoutBoundarySupplementaryItem {
         .init(layoutSize: .init(widthDimension: .fractionalWidth(1),
                                 heightDimension: .estimated(30)),
@@ -180,27 +235,50 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 //    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+        let controller = DetailVC()
+//        print("MARK - \(controller.setTitle(title: sections[indexPath.row].title))")
+        navigationController?.pushViewController(controller, animated: true)
     }
 //
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return sections[section].count
+        switch collectionView {
+        case collectionViewCategory:
+            return sections.count
+        case kindsStoresCollectionView:
+            return sectionsKindsStores.count
+        default: return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        switch self.sections[indexPath.section]{
-        case .category(let section):
+        switch collectionView {
+        
+        case collectionViewCategory:
 
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as? CategoryCollectionViewCell
              else {
                 return UICollectionViewCell()
             }
-        
-            cell.setup(title: section[indexPath.row].title,
-                       images: section[indexPath.row].image)
+            cell.setUp(category: sections[indexPath.row])
+//            cell.setup(title: section[indexPath.row].title,
+//                       images: section[indexPath.row].image)
             return cell
           
+        case kindsStoresCollectionView:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: KindsStoresCollectionViewCell.identifier, for: indexPath) as? KindsStoresCollectionViewCell
+             else {
+                return UICollectionViewCell()
+            }
+            cell.setUp(item: sectionsKindsStores[indexPath.row])
+
+//            cell.setup(title: kind[indexPath.row].title,
+//                       images: kind[indexPath.row].image)
+            return cell
+            
+        default:
+            return UICollectionViewCell()
         }
         
     }
@@ -209,6 +287,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         case UICollectionView.elementKindSectionHeader:
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "HeaderSupplementaryView", for: indexPath) as! HeaderSupplementaryView
             header.configureHeader(categoryName: sections[indexPath.section].title)
+            
             return header
         default:
             return UICollectionReusableView()

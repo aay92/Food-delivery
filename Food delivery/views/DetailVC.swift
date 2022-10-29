@@ -11,9 +11,14 @@ class DetailVC: UIViewController {
     
     static let identifier = "Detail"
     
+    var nameTitle = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
-        
+        view.backgroundColor = .systemRed
+        title = ""
+    }
+    func setTitle(title: String){
+        self.nameTitle = title
     }
 }

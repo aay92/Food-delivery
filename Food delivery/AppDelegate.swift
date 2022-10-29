@@ -1,7 +1,6 @@
 //
 //  AppDelegate.swift
 //  Food delivery
-//
 //  Created by Aleksey Alyonin on 22.10.2022.
 //
 
