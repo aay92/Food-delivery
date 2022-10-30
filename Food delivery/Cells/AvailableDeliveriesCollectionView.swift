@@ -83,9 +83,9 @@ class AvailableDeliveriesCollectionView: UICollectionViewCell {
         
     }
     
-    func setUp(item: SalesItem){
-        nameLbl.text = item.title
-        image.image = UIImage(named: "\(item.image)")
+    func setUp(itemAvailableDeliveries: SalesItem){
+        nameLbl.text = itemAvailableDeliveries.title
+        image.image = UIImage(named: "\(itemAvailableDeliveries.image)")
         
         //        categoryImageView.kf.setImage(with: category.image?.asUrl)
     }

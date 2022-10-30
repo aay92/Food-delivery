@@ -325,7 +325,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
             navigationController?.pushViewController(controller, animated: true)
         case availableDeliveriesCollectionView:
             let controller = DetailsStore()
-            controller.setTitle(title: sectionsKindsStores[indexPath.row].title)
+            controller.setTitle(title: sectionsAvailableDeliveries[indexPath.row].title)
             navigationController?.pushViewController(controller, animated: true)
             
         default:
@@ -373,7 +373,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
             else {
                 return UICollectionViewCell()
             }
-            cell.setUp(item: sectionsAvailableDeliveries[indexPath.row])
+            cell.setUp(itemAvailableDeliveries: sectionsAvailableDeliveries[indexPath.row])
             return cell
             
         default:
