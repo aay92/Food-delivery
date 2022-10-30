@@ -12,6 +12,7 @@ struct MockData {
     static let shared = MockData()
     
     var category: [Item] = [
+        Item.init(title: "Акции", image: "discount"),
         Item.init(title: "Молочные продукты", image: "milk"),
         Item.init(title: "Хлебобулочные изделия", image: "bread"),
         Item.init(title: "Кондитерские изделия", image: "candy"),
@@ -25,29 +26,32 @@ struct MockData {
         SalesItem.init(title: "Самокат", image: "samocat"),
         SalesItem.init(title: "Перекресток", image: "perecrestok")
     ]
-//
-//    private var category: Item = [.init(title: "Молочные продукты", image: "milk"),
-//                   .init(title: "Хлебобулочные изделия", image: "bread"),
-//                   .init(title: "Кондитерские изделия", image: "candy"),
-//                   .init(title: "Колбасные изделия", image: "steak"),
-//                   .init(title: "Напитки", image: "drink")
-//                  ])
-//    }()
     
-//    private var kindsStores: SalesItem = {
-//        .kindsStores([.init(title: "Магнит", image: "milk"),
-//                   .init(title: "Пятерочка", image: "bread"),
-//                   .init(title: "Метро", image: "candy"),
-//                   .init(title: "Самокат", image: "steak"),
-//                   .init(title: "Перекресток", image: "drink")
-//                  ])
-//    }()
-//
-//    var pageData: [ItemSection] {
-//        [category]
-//    }
-//    
-//    var pageDataKind: [ItemSection] {
-//        [kindsStores]
-//    }
+    var availableDeliveries: [SalesItem] = [
+        SalesItem.init(title: "KFC", image: "kfc"),
+        SalesItem.init(title: "Пицца - крутотитца", image: "pizzaa"),
+        SalesItem.init(title: "Шефф готовит", image: "cheff"),
+        SalesItem.init(title: "Ташир", image: "tashir"),
+        SalesItem.init(title: "Бургер Кинг", image: "burger")
+    ]
+    
+    
+    enum header {
+        case category
+        case kindsStores
+        case availableDeliveries
+        
+        var item: String {
+            switch self {
+            case .category:
+                return "Категория продуктов"
+            case .kindsStores:
+                return "Магазины"
+            case .availableDeliveries:
+                return "Доступные доставки"
+            }
+        }
+    }
+    
 }
+

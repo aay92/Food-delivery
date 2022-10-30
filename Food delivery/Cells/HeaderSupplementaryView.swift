@@ -10,7 +10,11 @@ import Foundation
 import UIKit
 
 class HeaderSupplementaryView : UICollectionReusableView {
+    
+    static let identifier = "HeaderSupplementaryView"
+    
     private let headerLabel: UILabel = {
+        
         let label = UILabel()
         label.text = "header"
         label.textAlignment = .center

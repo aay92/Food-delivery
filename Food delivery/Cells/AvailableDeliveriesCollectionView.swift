@@ -1,5 +1,5 @@
 //
-//  KindsStoresCollectionViewCell.swift
+//  AvailableDeliveriesCollectionView.swift
 //  Food delivery
 //
 //  Created by Aleksey Alyonin on 29.10.2022.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class KindsStoresCollectionViewCell: UICollectionViewCell {
+class AvailableDeliveriesCollectionView: UICollectionViewCell {
     
-    static let identifier = "KindsStoresCollectionViewCell"
+    static let identifier = "AvailableDeliveriesCollectionView"
     
     private let view: UIView = {
         let view = UIView()
@@ -30,12 +30,11 @@ class KindsStoresCollectionViewCell: UICollectionViewCell {
         return stackView
     }()
     
-
+    
     private var image: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleToFill
         image.backgroundColor = .systemBlue.withAlphaComponent(0.3)
-        
         image.layer.cornerRadius = 10
         image.image = UIImage(named: "")
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -73,49 +72,49 @@ class KindsStoresCollectionViewCell: UICollectionViewCell {
         layer.shadowRadius = 5
         image.layer.masksToBounds = true
         image.layer.cornerRadius = 10
-//        backgroundColor = .white
-//        addSubview(image)
-//        addSubview(view)
+        //        backgroundColor = .white
+        //        addSubview(image)
+        //        addSubview(view)
         addSubview(stack)
         stack.addArrangedSubview(view)
         stack.addArrangedSubview(image)
         stack.addArrangedSubview(nameLbl)
-
-       
+        
+        
     }
     
     func setUp(item: SalesItem){
         nameLbl.text = item.title
         image.image = UIImage(named: "\(item.image)")
         
-//        categoryImageView.kf.setImage(with: category.image?.asUrl)
+        //        categoryImageView.kf.setImage(with: category.image?.asUrl)
     }
     
     private func setConsrtaints(){
-            NSLayoutConstraint.activate([
-                view.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-                view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-                view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-                view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
-
-                image.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-                image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-                image.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-                image.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
-                
-                nameLbl.topAnchor.constraint(equalTo: topAnchor, constant: 115),
-//leadingAnchor =  от левого края
-                nameLbl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-                nameLbl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-                nameLbl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 5),
-//                nameLbl.heightAnchor.constraint(equalToConstant: 8),
-//                nameLbl.widthAnchor.constraint(equalToConstant: 8),
-                
-                stack.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-                stack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-                stack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-                stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
-            ])
+        NSLayoutConstraint.activate([
+            view.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+            view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+            
+            image.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            image.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            image.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
+            
+            nameLbl.topAnchor.constraint(equalTo: topAnchor, constant: 175),
+            //leadingAnchor =  от левого края
+            nameLbl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            nameLbl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            nameLbl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 5),
+            //                nameLbl.heightAnchor.constraint(equalToConstant: 8),
+            //                nameLbl.widthAnchor.constraint(equalToConstant: 8),
+            
+            stack.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            stack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            stack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
+        ])
     }
     
 }
